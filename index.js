@@ -19,6 +19,36 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 await db.read();
+await db.read();
+
+// --- SPIDERLINK → GOOGLE SHEETS SYNC ---------------------
+import fetch from "node-fetch";
+
+const GOOGLE_SHEET_WEBHOOK = "https://script.google.com/macros/s/AKfycbyiZyzDWZp6aSh5jeHGhqMbzvXelFiykEUjrC4GWHa4exfuImVCpe3KHDXa0Y8Amk4/exec";
+
+app.post("/submit", async (req, res) => {
+  const record = req.body;
+  record.timestamp = new Date().toISOString();
+
+  // Save locally (backup)
+  db.data.records.push(record);
+  await db.write();
+
+  // Send to Google Sheet
+  try {
+    await fetch(GOOGLE_SHEET_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record)
+    });
+    console.log("✅ Synced to Google Sheet:", record);
+  } catch (error) {
+    console.error("❌ Google Sheet sync failed:", error);
+  }
+
+  res.json({ success: true, message: "Record saved and synced" });
+});
+// ----------------------------------------------------------
 
 const REQUIRED_FIELDS = {
   seller: ["name", "goods", "phone", "location"],
