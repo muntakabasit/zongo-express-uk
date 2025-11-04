@@ -3,116 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpiderLink Collector</title>
+  <title>Zongo Express UK</title>
+
   <style>
-    body { background:#0b0d12; color:#e6eaf2; font-family:sans-serif; padding:20px; }
-    .wrap { max-width:600px; margin:auto; }
-    .card { background:#141827; border:1px solid #23283f; border-radius:12px; padding:20px; margin-top:15px; }
-    input, select { width:100%; margin-top:8px; padding:10px; border-radius:8px; border:none; background:#0f1220; color:white; }
-    button { margin-top:12px; width:100%; padding:10px; border:none; border-radius:8px; background:#6c63ff; color:white; font-weight:700; }
-    .nav { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
-    .nav button { flex:1; background:#2a2f45; border:1px solid #3a4060; padding:8px; border-radius:8px; }
-    pre { background:#0f1220; padding:10px; border-radius:10px; overflow-x:auto; color:#9ef; font-size:12px; }
+    body {
+      background: radial-gradient(circle at 30% 30%, #0b0b14, #000);
+      color: #e0e0ff;
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      background: linear-gradient(90deg, #4b6fff, #8a73ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 8px #4b6fff55; }
+      50% { text-shadow: 0 0 20px #8a73ffaa; }
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 1em;
+      color: #8a8aff;
+      margin-bottom: 20px;
+    }
+
+    .wrap {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .card {
+      background: #121224;
+      border: 1px solid #2b2b4a;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(75, 110, 255, 0.2);
+    }
+
+    input, select {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #1a1a2e;
+      color: #fff;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: linear-gradient(90deg, #4b6fff, #8a73ff);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #4b6fff88;
+    }
+
+    #formArea {
+      margin-top: 15px;
+    }
+
+    .promo-frame {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(75, 110, 255, 0.25);
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <h1>🕸️ SpiderLink Field Collector</h1>
-    <div class="nav">
-      <button onclick="showForm('seller')">🏪 Seller</button>
-      <button onclick="showForm('kayayoo')">🧺 Kayayoo</button>
-      <button onclick="showForm('rider')">🏍️ Rider</button>
-      <button onclick="showForm('customer')">👤 Customer</button>
-      <button onclick="showForm('momo')">🏦 MoMo</button>
-      <button onclick="loadList()">📋 View Data</button>
+    <h1>⚡ Zongo Express UK</h1>
+    <p class="tagline">Fast • Local • Reliable</p>
+
+    <div class="promo-frame">
+      <iframe src="https://www.behance.net/embed/project/158867369?ilo0=1"
+        height="316" width="404" allowfullscreen frameborder="0"
+        allow="clipboard-write" loading="lazy"></iframe>
     </div>
+
+    <div class="nav">
+      <button data-type="errand" onclick="showForm('errand')">🏃 Errand</button>
+      <button data-type="delivery" onclick="showForm('delivery')">🚚 Delivery</button>
+      <button data-type="cleaner" onclick="showForm('cleaner')">🧹 Cleaner</button>
+      <button data-type="customer" onclick="showForm('customer')">👤 Customer</button>
+      <button data-type="payments" onclick="showForm('payments')">💳 Payments</button>
+      <button id="viewData" onclick="loadList()">📊 View Data</button>
+    </div>
+
     <div id="formArea" class="card"></div>
-    <div id="msg"></div>
   </div>
 
   <script>
-    const el = sel => document.querySelector(sel);
-    const msg = el("#msg");
+    async function showForm(type) {
+      const formArea = document.getElementById('formArea');
+      const fields = {
+        errand: ['Full Name', 'Task Description', 'Pickup Location', 'Dropoff Location', 'Phone Number'],
+        delivery: ['Full Name', 'Package Type', 'Pickup Address', 'Destination', 'Phone Number'],
+        cleaner: ['Full Name', 'Service Type', 'Address', 'Preferred Time', 'Phone Number'],
+        customer: ['Full Name', 'Email', 'Phone', 'Preferred Service'],
+        payments: ['Name', 'Amount (£)', 'Payment Method', 'Notes']
+      };
 
-    const forms = {
-      seller: `
-        <h3>Seller</h3>
-        <input id="name" placeholder="Full name" />
-        <input id="goods" placeholder="Goods sold" />
-        <input id="phone" placeholder="Phone number" />
-        <input id="location" placeholder="Location" />
-        <button onclick="submit('seller')">Save Seller</button>
-      `,
-      kayayoo: `
-        <h3>Kayayoo</h3>
-        <input id="name" placeholder="Full name" />
-        <input id="phone" placeholder="Phone number" />
-        <input id="area" placeholder="Main area" />
-        <input id="charge" placeholder="Charge per trip (₵)" />
-        <button onclick="submit('kayayoo')">Save Kayayoo</button>
-      `,
-      rider: `
-        <h3>Rider</h3>
-        <input id="name" placeholder="Full name" />
-        <input id="phone" placeholder="Phone number" />
-        <input id="route" placeholder="Main route" />
-        <input id="rate" placeholder="Rate per km (₵)" />
-        <button onclick="submit('rider')">Save Rider</button>
-      `,
-      customer: `
-        <h3>Customer</h3>
-        <input id="area" placeholder="Area" />
-        <select id="usesWhatsapp">
-          <option value="">Uses WhatsApp?</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-        <select id="payDelivery">
-          <option value="">How much to pay for delivery?</option>
-          <option><₵5</option><option>₵5–₵10</option><option>₵10+</option>
-        </select>
-        <button onclick="submit('customer')">Save Customer</button>
-      `,
-      momo: `
-        <h3>MoMo Hub</h3>
-        <input id="name" placeholder="Agent Name" />
-        <input id="phone" placeholder="Phone number" />
-        <input id="location" placeholder="Location" />
-        <select id="storage">
-          <option value="">Has small storage?</option>
-          <option>Yes</option><option>No</option>
-        </select>
-        <button onclick="submit('momo')">Save Hub</button>
-      `
-    };
+      const formFields = fields[type]
+        .map(f => `<input placeholder="${f}" name="${f.toLowerCase().replace(/ /g,'_')}" />`)
+        .join('');
 
-    function showForm(type) {
-      el("#formArea").innerHTML = forms[type] || "";
-      msg.innerHTML = "";
-    }
+      formArea.innerHTML = `
+        <h3>${type.charAt(0).toUpperCase() + type.slice(1)} Request</h3>
+        <form id="serviceForm">
+          ${formFields}
+          <button type="submit">🚀 Book Now</button>
+        </form>
+      `;
 
-    async function submit(type) {
-      const payload = {};
-      document.querySelectorAll("input, select").forEach(i => payload[i.id] = i.value);
-      msg.textContent = "Saving...";
-      const res = await fetch(`/api/submit/${type}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      msg.textContent = data.success ? `✅ Saved (${data.id})` : `❌ ${data.error || "Error"}`;
+      document.getElementById('serviceForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        data.type = type;
+
+        const res = await fetch('/api/submit/' + type, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        alert(result.message || "Request sent successfully!");
+      };
     }
 
     async function loadList() {
-      msg.textContent = "Loading...";
-      const res = await fetch("/api/list");
-      const data = await res.json();
-      el("#formArea").innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-      msg.textContent = "";
+      const res = await fetch('/api/list');
+      const records = await res.json();
+      const formArea = document.getElementById('formArea');
+      formArea.innerHTML = '<h3>📊 Recent Bookings</h3><pre>' + JSON.stringify(records, null, 2) + '</pre>';
     }
-
-    showForm("seller");
   </script>
 </body>
 </html>
