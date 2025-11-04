@@ -6,10 +6,120 @@
   <title>Zongo Express UK</title>
 
   <style>
-    body {
-      background: radial-gradient(circle at 30% 30%, #0b0b14, #000);
-      color: #e0e0ff;
-      font-family: 'Inter', sans-serif;
+  body {
+    background: radial-gradient(circle at 30% 30%, #0b0b14, #000);
+    color: #e0e0ff;
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, #4b6fff, #8a73ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 8px #4b6fff55; }
+    50% { text-shadow: 0 0 20px #8a73ffaa; }
+  }
+
+  .tagline {
+    text-align: center;
+    font-size: 1em;
+    color: #8a8aff;
+    margin-bottom: 20px;
+  }
+
+  .wrap {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .card {
+    background: #121224;
+    border: 1px solid #2b2b4a;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(75, 110, 255, 0.2);
+  }
+
+  input, select {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: #fff;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  button {
+    background: linear-gradient(90deg, #4b6fff, #8a73ff);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #4b6fff88;
+  }
+
+  #formArea {
+    margin-top: 15px;
+  }
+
+  .promo-frame {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  iframe {
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(75, 110, 255, 0.25);
+    max-width: 100%;
+  }
+
+  /* 📱 Mobile responsiveness */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.5em;
+    }
+    .tagline {
+      font-size: 0.9em;
+    }
+    .nav {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+    }
+    .card {
+      padding: 15px;
+    }
+  }
+</style>
       padding: 20px;
     }
 
