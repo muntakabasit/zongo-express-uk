@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpiderLink Collector</title>
+  <style>
+    body { background:#0b0d12; color:#e6eaf2; font-family:sans-serif; padding:20px; }
+    .wrap { max-width:600px; margin:auto; }
+    .card { background:#141827; border:1px solid #23283f; border-radius:12px; padding:20px; margin-top:15px; }
+    input, select { width:100%; margin-top:8px; padding:10px; border-radius:8px; border:none; background:#0f1220; color:white; }
+    button { margin-top:12px; width:100%; padding:10px; border:none; border-radius:8px; background:#6c63ff; color:white; font-weight:700; }
+    .nav { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+    .nav button { flex:1; background:#2a2f45; border:1px solid #3a4060; padding:8px; border-radius:8px; }
+    pre { background:#0f1220; padding:10px; border-radius:10px; overflow-x:auto; color:#9ef; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🕸️ SpiderLink Field Collector</h1>
+    <div class="nav">
+      <button onclick="showForm('seller')">🏪 Seller</button>
+      <button onclick="showForm('kayayoo')">🧺 Kayayoo</button>
+      <button onclick="showForm('rider')">🏍️ Rider</button>
+      <button onclick="showForm('customer')">👤 Customer</button>
+      <button onclick="showForm('momo')">🏦 MoMo</button>
+      <button onclick="loadList()">📋 View Data</button>
+    </div>
+    <div id="formArea" class="card"></div>
+    <div id="msg"></div>
+  </div>
+
+  <script>
+    const el = sel => document.querySelector(sel);
+    const msg = el("#msg");
+
+    const forms = {
+      seller: `
+        <h3>Seller</h3>
+        <input id="name" placeholder="Full name" />
+        <input id="goods" placeholder="Goods sold" />
+        <input id="phone" placeholder="Phone number" />
+        <input id="location" placeholder="Location" />
+        <button onclick="submit('seller')">Save Seller</button>
+      `,
+      kayayoo: `
+        <h3>Kayayoo</h3>
+        <input id="name" placeholder="Full name" />
+        <input id="phone" placeholder="Phone number" />
+        <input id="area" placeholder="Main area" />
+        <input id="charge" placeholder="Charge per trip (₵)" />
+        <button onclick="submit('kayayoo')">Save Kayayoo</button>
+      `,
+      rider: `
+        <h3>Rider</h3>
+        <input id="name" placeholder="Full name" />
+        <input id="phone" placeholder="Phone number" />
+        <input id="route" placeholder="Main route" />
+        <input id="rate" placeholder="Rate per km (₵)" />
+        <button onclick="submit('rider')">Save Rider</button>
+      `,
+      customer: `
+        <h3>Customer</h3>
+        <input id="area" placeholder="Area" />
+        <select id="usesWhatsapp">
+          <option value="">Uses WhatsApp?</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+        <select id="payDelivery">
+          <option value="">How much to pay for delivery?</option>
+          <option><₵5</option><option>₵5–₵10</option><option>₵10+</option>
+        </select>
+        <button onclick="submit('customer')">Save Customer</button>
+      `,
+      momo: `
+        <h3>MoMo Hub</h3>
+        <input id="name" placeholder="Agent Name" />
+        <input id="phone" placeholder="Phone number" />
+        <input id="location" placeholder="Location" />
+        <select id="storage">
+          <option value="">Has small storage?</option>
+          <option>Yes</option><option>No</option>
+        </select>
+        <button onclick="submit('momo')">Save Hub</button>
+      `
+    };
+
+    function showForm(type) {
+      el("#formArea").innerHTML = forms[type] || "";
+      msg.innerHTML = "";
+    }
+
+    async function submit(type) {
+      const payload = {};
+      document.querySelectorAll("input, select").forEach(i => payload[i.id] = i.value);
+      msg.textContent = "Saving...";
+      const res = await fetch(`/api/submit/${type}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      msg.textContent = data.success ? `✅ Saved (${data.id})` : `❌ ${data.error || "Error"}`;
+    }
+
+    async function loadList() {
+      msg.textContent = "Loading...";
+      const res = await fetch("/api/list");
+      const data = await res.json();
+      el("#formArea").innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+      msg.textContent = "";
+    }
+
+    showForm("seller");
+  </script>
+</body>
+</html>

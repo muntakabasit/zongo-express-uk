@@ -1,0 +1,31 @@
+{
+  "records": [
+    {
+      "id": "seller-1762251852875",
+      "type": "seller",
+      "name": "hajia balawu",
+      "goods": "water ",
+      "phone": "026662666",
+      "location": "lapaz new market",
+      "createdAt": "2025-11-04T10:24:12.875Z"
+    },
+    {
+      "id": "kayayoo-1762251874068",
+      "type": "kayayoo",
+      "name": "memuna ",
+      "phone": "12345678",
+      "area": "lpaaz",
+      "charge": "5",
+      "createdAt": "2025-11-04T10:24:34.068Z"
+    },
+    {
+      "id": "rider-1762251900635",
+      "type": "rider",
+      "name": "ayal",
+      "phone": "12345678",
+      "route": "lapaz madina ",
+      "rate": "5",
+      "createdAt": "2025-11-04T10:25:00.635Z"
+    }
+  ]
+}
