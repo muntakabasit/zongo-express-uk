@@ -119,6 +119,20 @@
       padding: 15px;
     }
   }
+  body {
+  background: linear-gradient(-45deg, #0b0b14, #12122a, #000, #1a1a2e);
+  background-size: 400% 400%;
+  animation: bgPulse 12s ease infinite;
+  color: #e0e0ff;
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+@keyframes bgPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 </style>
       padding: 20px;
     }
@@ -278,5 +292,3 @@
       formArea.innerHTML = '<h3>📊 Recent Bookings</h3><pre>' + JSON.stringify(records, null, 2) + '</pre>';
     }
   </script>
-</body>
-</html>
