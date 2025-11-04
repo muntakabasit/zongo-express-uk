@@ -75,7 +75,7 @@ app.post("/api/submit/:type", async (req, res) => {
   db.data.records.push(record);
   await db.write();
 
-  res.json({ success: true, id: record.id });
+res.json({ ok: true, app: "Zongo Express UK" });
 });
 
 app.get("/api/list", async (req, res) => {
