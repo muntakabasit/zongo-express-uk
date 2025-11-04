@@ -1,329 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zongo Express UK — Fast · Local · Reliable</title>
-  <meta property="og:title" content="Zongo Express UK - Premium Courier in Birmingham" />
-  <meta property="og:description" content="Fast, local, reliable errands, deliveries, and small moves. Book on WhatsApp." />
-  <meta name="theme-color" content="#0B1023"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zongo Express UK — Same-Day Birmingham Courier</title>
+  <meta name="description" content="Fast, local, reliable. Same-day Birmingham courier for returns, pickups, small parcels & errands." />
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Zongo Express UK — Same-Day Birmingham Courier">
+  <meta property="og:description" content="Book in 10 seconds via WhatsApp. Fast • Local • Reliable." />
+  <meta name="theme-color" content="#FFFFFF" />
 
   <style>
     :root{
-      --navy:#0B1023;
-      --crimson:#C41E3A; /* crimson at ~80% inside gradients via rgba */
-      --glass:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.12);
-      --white:#EEF1FF;
-      --brass:#8B6B32;
+      --bg:#ffffff;
+      --ink:#111111;
+      --sub:#555555;
+      --line:#eaeaea;
+      --primary:#D32F2F;   /* brand red */
+      --accent:#F9A825;    /* warm yellow */
+      --wa:#25D366;        /* WhatsApp */
       --radius:16px;
-      --shadow:0 10px 40px rgba(0,0,0,.35);
-      --glow:0 0 18px rgba(196,30,58,.45);
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --shadow-soft:0 4px 14px rgba(0,0,0,.06);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0}
+    *{box-sizing:border-box} html,body{margin:0;padding:0}
     body{
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:var(--white);
-      background:
-        radial-gradient(1200px 800px at 85% -10%, rgba(196,30,58,.80), transparent 55%),
-        radial-gradient(1000px 700px at -10% 90%, rgba(196,30,58,.35), transparent 60%),
-        linear-gradient(180deg, #0A0F23 0%, #050812 100%);
-      min-height:100dvh;
-      padding:22px;
+      font-family:ui-sans-serif, -apple-system, system-ui, Segoe UI, Inter, Roboto, Helvetica, Arial;
+      color:var(--ink); background:var(--bg);
     }
-    .wrap{ width:min(1000px, 100%); margin:0 auto; }
+    .wrap{max-width:1040px;margin-inline:auto;padding:24px}
+    .hero{
+      display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center;
+      padding:24px; border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow); background:#fff;
+    }
+    .badge{display:inline-flex;align-items:center;gap:.5rem;background:#f5f5f7;border:1px solid var(--line);color:#333;padding:.5rem .75rem;border-radius:999px;font-weight:600;font-size:.9rem}
+    h1{font-size:clamp(28px,4.2vw,44px);letter-spacing:-.02em;margin:12px 0 6px}
+    .sub{color:var(--sub);font-size:clamp(14px,2.2vw,18px)}
+    .points{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 22px}
+    .chip{padding:.45rem .7rem;border:1px solid var(--line);border-radius:999px;background:#fafafa;font-weight:600;font-size:.9rem}
+    .cta{display:flex;flex-direction:column; gap:12px; margin-top:8px; max-width:420px}
+    .btn{
+      appearance:none; border:1px solid var(--line); background:#fff; color:var(--ink);
+      padding:14px 16px; border-radius:999px; font-weight:700; letter-spacing:.01em; cursor:pointer;
+      box-shadow:var(--shadow-soft); transition:transform .12s ease, box-shadow .12s ease, border-color .12s;
+      text-align:center;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+    .btn-primary{background:var(--wa); color:#fff; border-color:transparent}
+    .btn-outline{background:#fff}
+    .btn-red{background:var(--primary); color:#fff; border-color:transparent}
+    .hint{color:var(--sub);font-size:.9rem}
 
-    header{ text-align:center; margin-bottom:18px; }
-    .logo{
-      display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
-      background:var(--glass); border:1px solid var(--line); box-shadow:var(--shadow);
+    .hero-art{
+      aspect-ratio:4/3; border-radius:24px; border:1px solid var(--line); overflow:hidden;
+      background:linear-gradient(180deg,#fff,#f9fafb);
+      display:grid; place-items:center; position:relative;
     }
-    h1{
-      margin:12px 0 6px; font-size:clamp(28px, 5.2vw, 44px); line-height:1.05; font-weight:800;
-      background:linear-gradient(90deg, #C8D4FF, #FFFFFF); -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow:0 6px 40px rgba(130,140,255,.24);
-    }
-    .tag{opacity:.9; font-weight:600}
+    /* Minimal flat biker SVG scales nicely */
+    svg{width:88%; height:auto}
 
+    .services{
+      display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:28px;
+    }
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);
+      border:1px solid var(--line); border-radius:20px; padding:16px; background:#fff; box-shadow:var(--shadow-soft)
     }
-    .hero{ display:grid; gap:20px; grid-template-columns:1.05fr .95fr; align-items:center; }
-    @media (max-width:900px){ .hero{ grid-template-columns:1fr; } }
+    .card h3{margin:0 0 6px;font-size:1.05rem}
+    .card p{margin:0 0 10px; color:var(--sub)}
+    .card .mini{display:flex; gap:8px; flex-wrap:wrap}
+    .mini .chip{font-weight:600; background:#fff}
 
-    /* Bull SVG container */
-    .bull{
-      width:100%; border-radius:18px; box-shadow:0 24px 80px rgba(120,96,255,.16), 0 8px 30px rgba(0,0,0,.38);
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-      padding:6px;
+    .form{
+      margin-top:24px; display:none; border:1px solid var(--line); border-radius:20px; padding:16px; background:#fff; box-shadow:var(--shadow-soft)
     }
-    .bull svg{ width:100%; height:auto; display:block; filter: drop-shadow(var(--glow)); }
-
-    .ctas{ display:grid; gap:12px; }
-    .cta{
-      border:none; border-radius:12px; padding:14px 16px; width:100%; color:white; font-weight:800; cursor:pointer;
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      transition: transform .12s ease, box-shadow .12s ease, opacity .2s;
+    .form.active{display:block}
+    .grid{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+    .grid-1{grid-template-columns:1fr}
+    input,textarea,select{
+      width:100%; padding:14px 12px; border:1px solid var(--line); border-radius:12px; background:#fff; font:inherit
     }
-    .cta.whatsapp{ background:linear-gradient(90deg, #25D366, #128C7E); }
-    .cta.schedule{ background:linear-gradient(90deg, #6C77FF, #9D8CFF); }
-    .cta.fb{ background:#1877F2; }
-    .cta:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.35); }
+    textarea{min-height:92px; resize:vertical}
+    .row{display:flex; gap:12px; flex-wrap:wrap}
+    .divider{height:1px;background:var(--line);margin:18px 0}
 
-    .nav{ display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 8px; }
-    .chip{
-      background:var(--glass); border:1px solid var(--line); padding:10px 12px; border-radius:10px; font-weight:700; cursor:pointer;
-      backdrop-filter: blur(8px);
+    /* Small */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; padding:18px}
+      .services{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
     }
-    .chip.active{ border-color: rgba(196,30,58,.6); box-shadow: var(--glow); }
-
-    .form{ margin-top:8px; }
-    .form label{ font-weight:700; font-size:.95rem; display:block; margin:10px 0 6px; }
-    .form input, .form select, .form textarea{
-      width:100%; border:none; outline:none; border-radius:12px; padding:12px 14px;
-      background:#0E1433; color:var(--white); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    /* Sticky WhatsApp bubble */
+    .bubble{
+      position:fixed; right:16px; bottom:16px; z-index:10
     }
-    .form textarea{ min-height:88px; resize:vertical }
-    .submit{ margin-top:12px }
-
-    .hint{ font-size:.9rem; opacity:.8; margin-top:8px; }
-    .mini{ font-size:.92rem; opacity:.85; text-align:center }
-
-    /* floating WhatsApp */
-    .wa-float{
-      position:fixed; right:18px; bottom:18px; z-index:50;
-      background:linear-gradient(90deg, #25D366, #128C7E); border-radius:999px; padding:12px 16px;
-      color:#fff; font-weight:900; display:flex; align-items:center; gap:10px; text-decoration:none;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-    }
-
-    /* modal */
-    .modal{ position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.75); z-index:90; }
-    .modal.active{ display:grid; }
-    .modal .box{ width:min(440px, 92%); padding:20px; border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line); box-shadow:var(--shadow); text-align:center;
-    }
-
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <div class="logo">⚡ Zongo Express UK</div>
-      <h1>Fast · Local · Reliable</h1>
-      <div class="tag">Birmingham same-day courier • Errands • Small moves • Cleaning add-on</div>
-    </header>
+  <div class="wrap">
 
-    <section class="card hero">
-      <!-- HERO: Bull mascot -->
-      <div class="bull">
-        <!-- Lightweight steampunk bull w/ gear pulse -->
-        <svg id="bullSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" aria-label="Birmingham Bull">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badge">⚡ Zongo Express UK</div>
+        <h1>Fast • Local • Reliable</h1>
+        <p class="sub">Same-day Birmingham courier for returns, pickups, small parcels & errands.</p>
+
+        <div class="points">
+          <span class="chip">Photo proof</span>
+          <span class="chip">Live updates</span>
+          <span class="chip">Fixed local rates</span>
+        </div>
+
+        <div class="cta">
+          <button class="btn btn-primary" id="waNow">Book now on WhatsApp</button>
+          <button class="btn btn-outline" id="openForm">Schedule pickup</button>
+          <button class="btn btn-outline" id="copyFB">Copy post for Facebook</button>
+          <span class="hint">Tip: Phone auto-formats to +44 on backend. Keep addresses clear (street + postcode).</span>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <!-- Flat vector biker (minimal/apple style) -->
+        <svg viewBox="0 0 800 600" role="img" aria-label="Courier on motorbike">
           <defs>
-            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#0B1023"/>
-              <stop offset="1" stop-color="#C41E3A"/>
+            <linearGradient id="bikeR" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#D32F2F"/>
+              <stop offset="1" stop-color="#B71C1C"/>
             </linearGradient>
-            <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="2"/>
-            </filter>
           </defs>
-          <!-- body plates -->
-          <g fill="none" stroke="#8B6B32" stroke-width="3" stroke-linecap="round">
-            <path d="M150 230 Q240 140 330 210" />
-            <path d="M330 210 Q420 280 520 240" />
-            <path d="M520 240 Q600 210 650 240" />
-            <path d="M320 260 Q400 340 520 320" />
+          <!-- road -->
+          <rect x="0" y="470" width="800" height="130" fill="#F3F4F6"/>
+          <g fill="#E5E7EB">
+            <rect x="110" y="526" width="80" height="8" rx="4"/>
+            <rect x="300" y="526" width="80" height="8" rx="4"/>
+            <rect x="490" y="526" width="80" height="8" rx="4"/>
+            <rect x="680" y="526" width="80" height="8" rx="4"/>
           </g>
-          <!-- horns -->
-          <path d="M180 190 Q120 120 170 70" stroke="#7a6030" stroke-width="6" fill="none"/>
-          <path d="M300 190 Q360 120 310 70" stroke="#7a6030" stroke-width="6" fill="none"/>
-          <!-- eye -->
-          <circle cx="260" cy="220" r="8" fill="#C49A6C"/>
-          <!-- snout ring -->
-          <circle cx="285" cy="240" r="6" fill="#D4AF37" filter="url(#soft)"/>
-          <!-- gear -->
-          <g id="gear" transform="translate(420 300)">
-            <circle cx="0" cy="0" r="20" fill="none" stroke="#8B6B32" stroke-width="3"/>
-            <path d="M0 -20 L0 -10 M0 10 L0 20 M-20 0 L-10 0 M10 0 L20 0" stroke="#8B6B32" stroke-width="3"/>
-          </g>
-          <!-- tail -->
-          <path d="M560 280 Q620 300 590 350" stroke="#A47E3C" stroke-width="5" fill="none"/>
-
-          <!-- overlay -->
-          <rect width="800" height="600" fill="url(#grad)" opacity=".18"/>
-          <text x="400" y="560" font-size="22" fill="#C41E3A" text-anchor="middle" opacity=".7">"Birmingham"</text>
+          <!-- wheels -->
+          <circle cx="280" cy="480" r="70" fill="#111"/>
+          <circle cx="280" cy="480" r="48" fill="#fff"/>
+          <circle cx="560" cy="480" r="70" fill="#111"/>
+          <circle cx="560" cy="480" r="48" fill="#fff"/>
+          <!-- frame -->
+          <path d="M280 480 L400 420 L560 480" stroke="#111" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <rect x="430" y="410" width="90" height="30" rx="8" fill="#111"/>
+          <!-- rider torso/helmet/box -->
+          <circle cx="430" cy="310" r="26" fill="url(#bikeR)"/>
+          <rect x="402" y="334" width="80" height="70" rx="14" fill="url(#bikeR)"/>
+          <rect x="330" y="360" width="70" height="60" rx="10" fill="#111"/>
+          <!-- handle -->
+          <path d="M470 380 L520 360" stroke="#111" stroke-width="12" stroke-linecap="round"/>
+          <!-- accent spark -->
+          <circle cx="520" cy="360" r="6" fill="var(--accent)"/>
         </svg>
       </div>
-
-      <!-- RIGHT: CTAs + services + form -->
-      <div>
-        <div class="ctas">
-          <a class="cta whatsapp" id="ctaWhatsApp" href="#" target="_blank" rel="noopener">💬 Book Now on WhatsApp</a>
-          <button class="cta schedule" id="ctaSchedule">🗓️ Schedule Pickup</button>
-          <button class="cta fb" id="ctaFb">📣 Post to Facebook</button>
-          <button class="cta" id="ctaJoin">👷 Join as Rider / Cleaner</button>
-          <div class="mini">Open 9:00–22:00 · Birmingham only · Photo proof on delivery</div>
-        </div>
-
-        <div class="nav">
-          <button class="chip" data-type="errand">🏃 Errand</button>
-          <button class="chip" data-type="delivery">🚚 Delivery</button>
-          <button class="chip" data-type="cleaner">🧹 Cleaner</button>
-          <button class="chip" data-type="customer">👤 Customer</button>
-          <button class="chip" data-type="moving">📦 Moving</button>
-          <button class="chip" id="viewData">📊 View Data</button>
-        </div>
-
-        <form id="serviceForm" class="form" style="display:none;"></form>
-        <div class="hint">Tip: Phone auto-formats to +44 on backend. Keep addresses clear (street + postcode).</div>
-      </div>
     </section>
-  </main>
 
-  <!-- Floating WhatsApp -->
-  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
+    <!-- QUICK CARDS -->
+    <section class="services">
+      <article class="card">
+        <h3>Returns & pickups</h3>
+        <p>Amazon, Vinted, Facebook Marketplace — collected today.</p>
+        <div class="mini">
+          <span class="chip">From £7</span>
+          <span class="chip">1–3 hrs</span>
+          <button class="btn btn-red" style="padding:.45rem .9rem" data-type="delivery">Choose</button>
+        </div>
+      </article>
+      <article class="card">
+        <h3>Errands</h3>
+        <p>Documents, prescriptions, forgotten items across town.</p>
+        <div class="mini">
+          <span class="chip">Local only</span>
+          <span class="chip">Photo proof</span>
+          <button class="btn btn-red" style="padding:.45rem .9rem" data-type="errand">Choose</button>
+        </div>
+      </article>
+      <article class="card">
+        <h3>Small moves</h3>
+        <p>Few bags/boxes. Cleaner add-on available.</p>
+        <div class="mini">
+          <span class="chip">Van on request</span>
+          <button class="btn btn-red" style="padding:.45rem .9rem" data-type="moving">Choose</button>
+        </div>
+      </article>
+    </section>
 
-  <!-- Join Modal -->
-  <div class="modal" id="joinModal" role="dialog" aria-modal="true" aria-label="Join Zongo Express">
-    <div class="box">
-      <h2>Join Zongo Express</h2>
-      <p>Rider or Cleaner? Fast payouts · Local runs · Flexible hours.</p>
-      <p class="mini" style="margin:8px 0 14px;">Submit interest via WhatsApp and we’ll get you set up.</p>
-      <a class="cta whatsapp" id="joinWa" href="#" target="_blank" rel="noopener">Apply via WhatsApp</a>
-      <div style="margin-top:10px;"><button class="chip" id="closeJoin">Close</button></div>
+    <!-- SCHEDULE FORM -->
+    <form class="form" id="requestForm">
+      <h3 style="margin:0 0 10px">Schedule pickup</h3>
+      <div class="grid" style="margin-top:6px">
+        <input name="name" placeholder="Your name" required />
+        <input name="phone" placeholder="Phone (UK)" inputmode="tel" required />
+        <input name="pickup" placeholder="Pickup address & postcode" class="grid-1" />
+        <input name="dropoff" placeholder="Dropoff address & postcode" class="grid-1" />
+      </div>
+      <div class="grid" style="margin-top:6px">
+        <select name="type" id="typeSel">
+          <option value="delivery">Delivery / Return</option>
+          <option value="errand">Errand</option>
+          <option value="moving">Small move</option>
+          <option value="cleaner">Cleaner add-on</option>
+        </select>
+        <select name="urgency">
+          <option value="standard">Standard (same day)</option>
+          <option value="rush">Rush (1 hour)</option>
+        </select>
+      </div>
+      <textarea name="details" placeholder="What should we know? Size, photos, access codes, times…" style="margin-top:6px"></textarea>
+      <div class="divider"></div>
+      <div class="row">
+        <button type="submit" class="btn btn-primary">Send request</button>
+        <button type="button" class="btn btn-outline" id="waPrefill">Open WhatsApp draft</button>
+      </div>
+      <p class="hint">We’ll confirm by WhatsApp. By submitting you agree to local T&Cs.</p>
+    </form>
+
+    <!-- sticky bubble -->
+    <div class="bubble">
+      <button class="btn btn-primary" id="waBubble">💬 WhatsApp</button>
     </div>
+
   </div>
 
   <script>
-    // ====== CONFIG ======
-    const PHONE = "447443051124"; // wa.me needs CC + number (no '+')
-    const WATEXT_DEFAULT = "Book Zongo Express UK: Fast · Local · Reliable in Birmingham.";
-    const waURL = (msg=WATEXT_DEFAULT) => `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+    const PHONE = '447443051124'; // UK number in international format for wa.me
 
-    // prime WhatsApp links
-    document.getElementById("ctaWhatsApp").href = waURL();
-    document.getElementById("waFloat").href = waURL();
-    document.getElementById("joinWa").href = waURL("Join as Rider/Cleaner — Zongo Express UK");
+    // Primary CTAs
+    const openWA = (text='Hi — I’d like to book Zongo Express today.') => {
+      const msg = encodeURIComponent(text);
+      window.open(`https://wa.me/${PHONE}?text=${msg}`, '_blank');
+    };
+    document.getElementById('waNow').onclick = () => openWA('Book Zongo Express: Fast • Local • Reliable in Birmingham.');
+    document.getElementById('waBubble').onclick = () => openWA();
 
-    // ====== BULL GEAR HOVER ======
-    (function(){
-      const svg = document.getElementById('bullSvg');
-      const gear = svg.getElementById ? svg.getElementById('gear') : svg.querySelector('#gear');
-      let spinning = false, raf;
-      const spin = (t0) => (t1)=>{
-        const dt = (t1 - t0) / 1000;
-        const angle = (dt * 360) % 360;
-        gear.setAttribute('transform', `translate(420 300) rotate(${angle})`);
-        if (spinning) raf = requestAnimationFrame(spin(t0));
-      };
-      svg.addEventListener('mouseenter', ()=>{ if(!spinning){ spinning = true; raf = requestAnimationFrame(spin(performance.now())); } });
-      svg.addEventListener('mouseleave', ()=>{ spinning = false; cancelAnimationFrame(raf); });
-      document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ spinning=false; cancelAnimationFrame(raf);} });
-    })();
-
-    // ====== SERVICES + FORM ======
-    const form = document.getElementById("serviceForm");
-    const serviceFields = {
-      errand:   ["name","phone","task","pickup","dropoff","notes"],
-      delivery: ["name","phone","item","pickup","dropoff","notes"],
-      cleaner:  ["name","phone","address","date","hours","notes"],
-      customer: ["name","phone","area","usesWhatsapp"],
-      moving:   ["name","phone","items","pickup","dropoff","notes"]
+    // Open form
+    document.getElementById('openForm').onclick = () => {
+      document.getElementById('requestForm').classList.add('active');
+      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
     };
 
-    function renderForm(type){
-      const fields = serviceFields[type] || [];
-      const labelize = s => s.replace(/([A-Z])/g, " $1").replace(/^./, c=>c.toUpperCase());
-      form.innerHTML = `
-        <input type="hidden" name="type" value="${type}">
-        ${fields.map(f => {
-          if (f === "notes") return `
-            <label>${labelize(f)}</label><textarea name="${f}" placeholder="Optional"></textarea>`;
-          if (f === "usesWhatsapp") return `
-            <label>${labelize(f)}</label>
-            <select name="${f}">
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>`;
-          if (f === "date") return `
-            <label>${labelize(f)}</label><input type="date" name="${f}" required>`;
-          if (f === "hours") return `
-            <label>${labelize(f)} (est.)</label><input type="number" min="1" step="0.5" name="${f}" required>`;
-          if (f === "phone") return `
-            <label>${labelize(f)}</label><input name="${f}" inputmode="tel" placeholder="07…" required>`;
-          return `<label>${labelize(f)}</label><input name="${f}" required>`;
-        }).join("")}
-        <button class="cta schedule submit" type="submit">✅ Submit</button>
-      `;
-      form.style.display = "block";
-
-      // also tune WhatsApp CTAs to this service
-      const pre = `Booking: ${type.toUpperCase()}\nName:\nPickup:\nDropoff:\nNotes:`;
-      document.getElementById("ctaWhatsApp").href = waURL(pre);
-      document.getElementById("waFloat").href = waURL(pre);
-
-      window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 12, behavior:'smooth' });
-    }
-
-    // chip handlers
-    document.querySelectorAll(".chip[data-type]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        renderForm(btn.dataset.type);
-      });
+    // Choose buttons wire service type + open form
+    document.querySelectorAll('[data-type]').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        document.getElementById('requestForm').classList.add('active');
+        document.getElementById('typeSel').value = b.dataset.type;
+        document.getElementById('requestForm').scrollIntoView({behavior:'smooth'});
+      })
     });
-    document.getElementById("ctaSchedule").addEventListener("click", ()=> renderForm("delivery"));
 
-    // submit -> JSON to backend
-    form.addEventListener("submit", async (e)=>{
+    // Facebook copy
+    document.getElementById('copyFB').onclick = async () => {
+      const txt = `Birmingham! Need something picked up or dropped off today?\n\nZongo Express UK — Fast • Local • Reliable\n• Returns | Pickups | Small parcels | Errands\n• Photo proof | Live updates\n\nBook in 10 seconds: https://wa.me/${PHONE}`;
+      try { await navigator.clipboard.writeText(txt); alert('Post copied. Paste it into Facebook.'); }
+      catch { alert('Copy failed. Long-press to copy:\n\n' + txt); }
+    };
+
+    // Form submit: POST to API and also prepare WA fallback
+    const form = document.getElementById('requestForm');
+    form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
-      const { type, ...payload } = data;
       try{
-        const r = await fetch(`/api/submit/${type}`, {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify(payload)
+        const res = await fetch(`/api/submit/${data.type || 'delivery'}`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(data)
         });
-        const out = await r.json();
-        if(out.success){
-          alert(`✅ Request saved (ID: ${out.id})`);
-          form.reset(); form.style.display="none";
-        }else{
-          alert(`❌ ${out.error || "Save failed"}${out.missing ? " — Missing: " + out.missing.join(", ") : ""}`);
-        }
+        const ok = res.ok ? await res.json() : null;
+        alert(ok?.message || 'Request received. We’ll confirm on WhatsApp.');
+        form.reset();
       }catch(err){
-        alert("Network error — try again or WhatsApp us directly.");
+        // Fallback to WA if API fails
+        openWA(`Pickup request:\nType: ${data.type}\nFrom: ${data.pickup}\nTo: ${data.dropoff}\nName: ${data.name}\nPhone: ${data.phone}\nUrgency: ${data.urgency}\nDetails: ${data.details}`);
       }
     });
 
-    // view data (simple peek)
-    document.getElementById("viewData").addEventListener("click", async()=>{
-      try{
-        const r = await fetch("/api/list");
-        const data = await r.json();
-        const items = data.items || data || [];
-        alert(`Recent (${items.length})\n\n` + items.slice(-5).map(i=>`${i.type} — ${i.name||""}`).join("\n"));
-      }catch{ alert("Could not load data"); }
-    });
-
-    // Facebook share helper
-    document.getElementById("ctaFb").addEventListener("click", ()=>{
-      const text = `Zongo Express UK — Fast · Local · Reliable\nBirmingham same-day errands, deliveries & small moves.\nBook now: wa.me/${PHONE}\n#Birmingham #Courier #Errands #SameDay #ZongoExpress`;
-      if(navigator.clipboard){ navigator.clipboard.writeText(text).then(()=> alert("📣 Blurb copied. Paste into Facebook Marketplace post.")); }
-      else { alert(text); }
-      window.open("https://www.facebook.com/marketplace/create/item", "_blank");
-    });
-
-    // Join modal
-    const joinModal = document.getElementById("joinModal");
-    document.getElementById("ctaJoin").addEventListener("click", ()=> joinModal.classList.add("active"));
-    document.getElementById("closeJoin").addEventListener("click", ()=> joinModal.classList.remove("active"));
+    // WhatsApp prefill from form without submitting
+    document.getElementById('waPrefill').onclick = ()=>{
+      const d = Object.fromEntries(new FormData(form).entries());
+      openWA(`Pickup request:\nType: ${d.type}\nFrom: ${d.pickup}\nTo: ${d.dropoff}\nName: ${d.name}\nPhone: ${d.phone}\nUrgency: ${d.urgency}\nDetails: ${d.details}`);
+    };
   </script>
 </body>
 </html>
